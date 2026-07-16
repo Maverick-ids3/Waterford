@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+projects/waterford-junior-pre-school/node_modules/
+
+# Next.js Build & Outputs
+.next/
+projects/waterford-junior-pre-school/.next/
+projects/waterford-junior-pre-school/out/
+
+# Environment configs
+.env*
+projects/waterford-junior-pre-school/.env*
+
+# Local Server logs & configs
+work/*.pid
+work/*.jobid
+work/*.log
+
+# IDE & system files
+.DS_Store
+Thumbs.db
+.agents/
+.codex/
+.gemini/

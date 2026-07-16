@@ -1,0 +1,150 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+
+  /* Waterford custom colors */
+  --color-waterford-black: #080808;
+  --color-waterford-charcoal: #171717;
+  --color-waterford-gold: #f6b516;
+  --color-waterford-gold-dark: #c88c00;
+  --color-waterford-white: #ffffff;
+  --color-waterford-paper: #fbfaf6;
+  --color-waterford-line: #e8e0cf;
+  --color-waterford-muted: #665f53;
+
+  /* shadcn token mappings */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ── Waterford Palette mapped to shadcn tokens ── */
+:root {
+  --background: #fbfaf6;
+  --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #f6b516;
+  --primary-foreground: #080808;
+  --secondary: #fbfaf6;
+  --secondary-foreground: #080808;
+  --muted: #fbfaf6;
+  --muted-foreground: #665f53;
+  --accent: #f6b516;
+  --accent-foreground: #080808;
+  --destructive: #dc2626;
+  --border: #e8e0cf;
+  --input: #e8e0cf;
+  --ring: #f6b516;
+  --chart-1: #f6b516;
+  --chart-2: #c88c00;
+  --chart-3: #665f53;
+  --chart-4: #171717;
+  --chart-5: #080808;
+  --radius: 0.5rem;
+  --sidebar: #fbfaf6;
+  --sidebar-foreground: #171717;
+  --sidebar-primary: #f6b516;
+  --sidebar-primary-foreground: #080808;
+  --sidebar-accent: #f6b516;
+  --sidebar-accent-foreground: #080808;
+  --sidebar-border: #e8e0cf;
+  --sidebar-ring: #f6b516;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+}
+
+/* ── Hero slideshow ── */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: opacity 900ms ease;
+}
+.hero-slide.is-active {
+  opacity: 1;
+}
+
+/* ── Learning path ordered list ── */
+.learning-path ol {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.learning-path li {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 640px) {
+  .learning-path li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
