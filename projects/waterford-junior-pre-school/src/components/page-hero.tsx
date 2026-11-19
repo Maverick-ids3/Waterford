@@ -10,7 +10,7 @@ export function PageHero({ eyebrow, heading }: PageHeroProps) {
         <p className="mb-3 text-[0.78rem] font-black uppercase tracking-wide text-waterford-gold">
           {eyebrow}
         </p>
-        <h1 className="m-0 max-w-[980px] text-[clamp(2.35rem,6vw,5rem)] leading-[1.08] break-words">
+        <h1 className="m-0 max-w-none text-[clamp(2.2rem,5vw,4.2rem)] leading-[1.08] break-words">
           {heading}
         </h1>
       </div>

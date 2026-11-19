@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import fs from "fs";
+import path from "path";
 import Image from "next/image";
 import { PageHero } from "@/components/page-hero";
 import { SectionWrapper } from "@/components/section-wrapper";
-import { Card, CardContent } from "@/components/ui/card";
+import { GalleryLightbox, type GalleryPhoto } from "@/components/gallery-lightbox";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -10,26 +12,67 @@ export const metadata: Metadata = {
     "Snapshots from school life at Waterford Junior & Pre-School — classroom activities, events, uniform pride, and outdoor play.",
 };
 
-const categories = [
-  {
-    title: "Classroom Learning",
-    desc: "Hands-on activities, reading time, creative tasks, and early numeracy.",
-  },
-  {
-    title: "Events",
-    desc: "Parent testimonials, admissions posts, celebrations, and term notices.",
-  },
-  {
-    title: "Uniform Pride",
-    desc: "Portraits and school identity moments that show confidence and belonging.",
-  },
-  {
-    title: "Outdoor Play",
-    desc: "Playground time, movement, sports, and social development.",
-  },
-];
+function getGalleryPhotos(): GalleryPhoto[] {
+  const rootDir = process.cwd();
+  const picturesDir = path.join(rootDir, "pictures");
+  const publicPicturesDir = path.join(rootDir, "public", "pictures");
+
+  // Choose source directory: check root "pictures" first, fallback to "public/pictures"
+  const sourceDir = fs.existsSync(picturesDir) ? picturesDir : publicPicturesDir;
+
+  if (!fs.existsSync(sourceDir)) {
+    return [];
+  }
+
+  // Ensure public/pictures exists so images can be served by Next.js
+  if (!fs.existsSync(publicPicturesDir)) {
+    fs.mkdirSync(publicPicturesDir, { recursive: true });
+  }
+
+  const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]);
+  const files = fs
+    .readdirSync(sourceDir)
+    .filter((file) => allowedExtensions.has(path.extname(file).toLowerCase()));
+
+  // Keep public/pictures in sync with the source directory
+  if (sourceDir === picturesDir) {
+    const existingInPublic = fs.readdirSync(publicPicturesDir);
+    // Remove files from public/pictures that were deleted in pictures/
+    for (const f of existingInPublic) {
+      if (!files.includes(f)) {
+        try {
+          fs.unlinkSync(path.join(publicPicturesDir, f));
+        } catch {
+          // ignore
+        }
+      }
+    }
+    // Copy any new or modified files
+    for (const f of files) {
+      const srcFile = path.join(picturesDir, f);
+      const destFile = path.join(publicPicturesDir, f);
+      if (!fs.existsSync(destFile) || fs.statSync(srcFile).mtimeMs > fs.statSync(destFile).mtimeMs) {
+        try {
+          fs.copyFileSync(srcFile, destFile);
+        } catch {
+          // ignore
+        }
+      }
+    }
+  }
+
+  return files.map((file) => {
+    return {
+      src: `/pictures/${encodeURIComponent(file)}`,
+      alt: "Waterford school photo",
+      title: "",
+    };
+  });
+}
 
 export default function GalleryPage() {
+  const photos = getGalleryPhotos();
+
   return (
     <>
       <PageHero
@@ -44,7 +87,9 @@ export default function GalleryPage() {
           alt="Waterford Junior and Pre-School photo and announcement gallery"
           width={800}
           height={560}
-          className="h-full max-h-[560px] w-full rounded-lg object-cover shadow-[0_20px_60px_rgba(0,0,0,0.14)]"
+          priority
+          style={{ width: "100%", height: "auto" }}
+          className="max-h-[560px] w-full rounded-lg object-cover shadow-[0_20px_60px_rgba(0,0,0,0.14)]"
         />
         <div>
           <p className="mb-3 text-[0.78rem] font-black uppercase tracking-wide text-waterford-gold-dark">
@@ -54,33 +99,24 @@ export default function GalleryPage() {
             Classroom activities, announcements, events, and learner portraits.
           </h2>
           <p className="mt-4 text-[1.04rem] text-waterford-muted">
-            This gallery preview uses Waterford&apos;s own visual style: golden
-            yellow, black, white, neat typography, and learner-centered imagery.
+            Our Waterford&apos;s visual style
           </p>
         </div>
       </SectionWrapper>
 
-      {/* Category grid */}
-      <section className="bg-waterford-white">
-        <SectionWrapper
-          className="grid gap-4 max-sm:grid-cols-1 max-md:grid-cols-2 md:grid-cols-4"
-          as="div"
-        >
-          {categories.map((c) => (
-            <Card
-              key={c.title}
-              className="min-h-[220px] border-waterford-line bg-waterford-white shadow-[0_12px_34px_rgba(0,0,0,0.06)]"
-            >
-              <CardContent className="p-7">
-                <h3 className="m-0 text-[1.24rem] leading-[1.08]">
-                  {c.title}
-                </h3>
-                <p className="mt-2 text-waterford-muted">{c.desc}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </SectionWrapper>
-      </section>
+      {/* Interactive Photo Gallery with Lightbox */}
+      <SectionWrapper className="pt-0">
+        <div className="mb-8 text-center">
+          <p className="mb-2 text-[0.78rem] font-black uppercase tracking-wide text-waterford-gold-dark">
+            Explore Waterford
+          </p>
+          <h2 className="m-0 text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.12]">
+            School Photo Gallery
+          </h2>
+        </div>
+
+        <GalleryLightbox photos={photos} />
+      </SectionWrapper>
     </>
   );
 }

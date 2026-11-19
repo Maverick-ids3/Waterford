@@ -33,7 +33,7 @@ const socialLinks = [
   },
   {
     label: "WhatsApp",
-    href: "https://wa.me/263000000000",
+    href: "https://wa.me/263775444415",
     color: "#25D366",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="size-5">
@@ -116,11 +116,11 @@ export function SiteFooter() {
           <div className="flex flex-col gap-3 text-[0.92rem] text-white/[0.72]">
             <p className="m-0 flex flex-col gap-0.5">
               <span className="font-bold text-white/90">Phone</span>
-              <a href="tel:+263000000000" className="hover:text-waterford-gold transition-colors">+263 000 000 000</a>
+              <a href="tel:+263775444415" className="hover:text-waterford-gold transition-colors">+263 775 444 415</a>
             </p>
             <p className="m-0 flex flex-col gap-0.5">
               <span className="font-bold text-white/90">Email</span>
-              <a href="mailto:info@waterfordjunior.ac.zw" className="hover:text-waterford-gold transition-colors">info@waterfordjunior.ac.zw</a>
+              <a href="mailto:waterfordjunior@gmail.com" className="hover:text-waterford-gold transition-colors">waterfordjunior@gmail.com</a>
             </p>
             <p className="m-0 flex flex-col gap-0.5">
               <span className="font-bold text-white/90">Office Hours</span>

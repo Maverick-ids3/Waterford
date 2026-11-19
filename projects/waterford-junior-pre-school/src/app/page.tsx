@@ -129,7 +129,8 @@ export default function HomePage() {
           alt="Waterford school photo gallery preview"
           width={800}
           height={560}
-          className="h-full max-h-[560px] w-full rounded-lg object-cover shadow-[0_20px_60px_rgba(0,0,0,0.14)]"
+          style={{ width: "100%", height: "auto" }}
+          className="max-h-[560px] w-full rounded-lg object-cover shadow-[0_20px_60px_rgba(0,0,0,0.14)]"
         />
       </SectionWrapper>
     </>

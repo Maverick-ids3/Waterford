@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full antialiased`} data-scroll-behavior="smooth">
       <body className="flex min-h-full flex-col bg-waterford-paper text-waterford-charcoal font-sans leading-[1.6]">
         <SiteHeader />
         <main className="flex-1">{children}</main>

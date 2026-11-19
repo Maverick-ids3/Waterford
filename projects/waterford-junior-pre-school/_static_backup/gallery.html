@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery | Waterford Junior & Pre-School</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Waterford Junior and Pre-School home">
@@ -34,34 +36,45 @@
     </section>
 
     <section class="section-inner gallery-feature">
-      <img src="assets/waterford-gallery-board.png" alt="Waterford Junior and Pre-School photo and announcement gallery">
+      <img src="assets/waterford-gallery-board.png"
+        alt="Waterford Junior and Pre-School photo and announcement gallery">
       <div>
         <p class="eyebrow dark">Recent Moments</p>
         <h2>Classroom activities, announcements, events, and learner portraits.</h2>
-        <p>This gallery preview uses Waterford's own visual style: golden yellow, black, white, neat typography, and learner-centered imagery.</p>
+        <p>Our Waterford's visual style</p>
       </div>
     </section>
 
-    <section class="soft-band">
-      <div class="section-inner gallery-grid">
-        <article>
-          <h3>Classroom Learning</h3>
-          <p>Hands-on activities, reading time, creative tasks, and early numeracy.</p>
-        </article>
-        <article>
-          <h3>Events</h3>
-          <p>Parent testimonials, admissions posts, celebrations, and term notices.</p>
-        </article>
-        <article>
-          <h3>Uniform Pride</h3>
-          <p>Portraits and school identity moments that show confidence and belonging.</p>
-        </article>
-        <article>
-          <h3>Outdoor Play</h3>
-          <p>Playground time, movement, sports, and social development.</p>
-        </article>
+    <!-- Photo Gallery Grid with Click-to-View Lightbox -->
+    <section class="section-inner photo-gallery-section">
+      <div class="photo-gallery-heading">
+        <p class="eyebrow dark">Explore Waterford</p>
+        <h2>School Photo Gallery</h2>
+      </div>
+
+      <div class="photo-grid" id="photoGrid">
+        <div class="photo-item" data-index="0"><img src="pictures/2027 enrolment.jpg" alt="Waterford photo" loading="lazy"></div>
+        <div class="photo-item" data-index="1"><img src="pictures/hero-slide-04.png" alt="Waterford photo" loading="lazy"></div>
+        <div class="photo-item" data-index="2"><img src="pictures/hero-slide-05.png" alt="Waterford photo" loading="lazy"></div>
+        <div class="photo-item" data-index="3"><img src="pictures/hero-slide-06.png" alt="Waterford photo" loading="lazy"></div>
       </div>
     </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal" aria-hidden="true">
+      <div class="lightbox-header">
+        <span class="lightbox-counter" id="lightboxCounter">1 / 16</span>
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close viewer">&times;</button>
+      </div>
+      <div class="lightbox-body">
+        <button class="lightbox-btn prev" id="lightboxPrev" type="button" aria-label="Previous image">&#10094;</button>
+        <div class="lightbox-image-wrap">
+          <img id="lightboxImg" src="" alt="Full view">
+        </div>
+        <button class="lightbox-btn next" id="lightboxNext" type="button" aria-label="Next image">&#10095;</button>
+      </div>
+      <div class="lightbox-thumbnails" id="lightboxThumbs"></div>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -77,4 +90,5 @@
   </footer>
   <script src="script.js"></script>
 </body>
+
 </html>

@@ -32,20 +32,39 @@ export default function ContactPage() {
           </h2>
           <div className="mt-[26px] grid gap-3">
             {[
-              { label: "Phone", value: "+263 000 000 000" },
-              { label: "Email", value: "info@waterfordjunior.ac.zw" },
+              {
+                label: "Phone / WhatsApp",
+                value: "+263 775 444 415",
+                href: "https://wa.me/263775444415",
+              },
+              {
+                label: "Email",
+                value: "waterfordjunior@gmail.com",
+                href: "mailto:waterfordjunior@gmail.com",
+              },
               {
                 label: "Office Hours",
                 value: "Monday to Friday, 8:00 AM to 4:00 PM",
               },
-              { label: "Location", value: "Zimbabwe" },
+              { label: "Location", value: "Budiriro, Harare, Zimbabwe" },
             ].map((item) => (
               <div
                 key={item.label}
                 className="grid gap-0.5 border-b border-waterford-line py-4"
               >
                 <strong>{item.label}</strong>
-                <span className="text-waterford-muted">{item.value}</span>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="text-waterford-muted hover:text-waterford-gold transition-colors"
+                  >
+                    {item.value}
+                  </a>
+                ) : (
+                  <span className="text-waterford-muted">{item.value}</span>
+                )}
               </div>
             ))}
           </div>
@@ -100,7 +119,7 @@ export default function ContactPage() {
             Visit Waterford
           </p>
           <h2 className="m-0 text-[clamp(2rem,5vw,3.45rem)] leading-[1.08]">
-            Campus location map placeholder
+            Campus location map
           </h2>
         </SectionWrapper>
       </section>
